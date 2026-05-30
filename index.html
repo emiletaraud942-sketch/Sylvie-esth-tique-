@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sylvie esthétique — Le Houlme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== assets/base.css (intégré) ===== */
+/* =====================================================================
+   Sylvie esthétique — structure & composants partagés
+   Chaque "direction" ne redéfinit que ses variables (couleurs + typo).
+   ===================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --maxw: 1100px;
+  --radius: 4px;
+  --nav-h: 68px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.65;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 500; line-height: 1.15; margin: 0; color: var(--text); }
+p { margin: 0; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+em { font-style: italic; color: var(--muted); }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
+
+.eyebrow {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+/* ---------------- Barre de navigation collante ---------------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  height: var(--nav-h);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center;
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 20px; }
+.brand { font-family: var(--font-head); font-size: 21px; letter-spacing: .02em; white-space: nowrap; }
+.brand small { display: block; font-family: var(--font-body); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin-top: 1px; }
+.nav-links { display: flex; gap: 26px; align-items: center; list-style: none; margin: 0; padding: 0; }
+.nav-links a { text-decoration: none; font-size: 14.5px; color: var(--muted); transition: color .2s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-cta {
+  text-decoration: none; font-size: 14px; padding: 9px 18px; border-radius: 999px;
+  background: var(--accent); color: var(--on-accent); white-space: nowrap; transition: opacity .2s;
+}
+.nav-cta:hover { opacity: .88; }
+.nav-burger { display: none; }
+
+/* ---------------- Hero ---------------- */
+.hero { padding: 84px 0 72px; }
+.hero .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+.hero h1 { font-size: clamp(40px, 6vw, 68px); letter-spacing: .005em; }
+.hero p.lead { font-size: 19px; color: var(--muted); margin: 22px 0 30px; max-width: 38ch; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn {
+  text-decoration: none; font-size: 15px; padding: 13px 26px; border-radius: 999px; transition: all .2s;
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: 1px solid transparent;
+}
+.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-primary:hover { opacity: .88; }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.hero-media { border-radius: var(--radius); overflow: hidden; }
+
+/* ---------------- Sections génériques ---------------- */
+.section { padding: 78px 0; }
+.section--tint { background: var(--tint); }
+.section-head { max-width: 620px; margin-bottom: 44px; }
+.section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+.section-head h2 { font-size: clamp(30px, 4vw, 44px); }
+.section-head p { color: var(--muted); margin-top: 14px; font-size: 18px; }
+
+/* ---------------- Sous-nav catégories (chips) ---------------- */
+.cat-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 48px; }
+.cat-nav a {
+  text-decoration: none; font-size: 14px; padding: 8px 16px; border-radius: 999px;
+  border: 1px solid var(--line); color: var(--muted); transition: all .2s; background: var(--surface);
+}
+.cat-nav a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------------- Mode MENU (carte de prix) ---------------- */
+.cat--menu { margin-bottom: 52px; }
+.cat--menu .cat-head { margin-bottom: 20px; }
+.cat--menu .cat-head h3 { font-size: 27px; }
+.cat--menu .cat-head p { color: var(--muted); font-size: 16px; margin-top: 4px; }
+.menu-list { list-style: none; margin: 0; padding: 0; }
+.menu-list li { display: flex; align-items: baseline; gap: 8px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.m-name { white-space: nowrap; }
+.m-dots { flex: 1; border-bottom: 1px dotted color-mix(in srgb, var(--muted) 50%, transparent); transform: translateY(-3px); }
+.m-price { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 600; }
+
+/* ---------------- Mode CARDS ---------------- */
+.cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+.cat--cards { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+.cat--cards .card-media .ph { border-radius: 0; }
+.cat--cards .card-body { padding: 26px 26px 28px; }
+.cat--cards .cat-head h3 { font-size: 23px; }
+.cat--cards .cat-head p { color: var(--muted); font-size: 14.5px; margin-top: 4px; }
+.card-list { list-style: none; margin: 18px 0 0; padding: 0; }
+.card-list li { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; }
+.card-list li:last-child { border-bottom: 0; }
+.card-list .m-meta { display: flex; align-items: center; gap: 12px; white-space: nowrap; }
+.card-list .m-dur { color: var(--muted); font-size: 13px; }
+.card-list .m-price { color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; }
+.presta-row { cursor: pointer; transition: background .15s, padding .15s; border-radius: var(--radius); margin: 0 -10px; padding-left: 10px; padding-right: 10px; }
+.presta-row:hover, .presta-row:focus-visible { background: var(--tint); outline: none; }
+.presta-row .m-add {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700;
+  color: var(--accent); opacity: 0; transition: opacity .15s; width: 0; overflow: hidden;
+}
+.presta-row:hover .m-add, .presta-row:focus-visible .m-add { opacity: 1; width: auto; }
+@media (hover: none) { .presta-row .m-add { opacity: 1; width: auto; } }
+
+/* ---------------- Mode ACCORDION ---------------- */
+.cat--accordion { border-bottom: 1px solid var(--line); }
+.cat--accordion:first-child { border-top: 1px solid var(--line); }
+.acc-trigger {
+  width: 100%; background: none; border: 0; cursor: pointer; text-align: left;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px;
+  padding: 24px 4px; font-family: inherit; color: var(--text);
+}
+.acc-title { font-family: var(--font-head); font-size: 24px; }
+.acc-tag { color: var(--muted); font-size: 15px; }
+.acc-icon { width: 16px; height: 16px; position: relative; }
+.acc-icon::before, .acc-icon::after { content: ""; position: absolute; background: var(--accent); transition: transform .25s; }
+.acc-icon::before { top: 7px; left: 0; width: 16px; height: 2px; }
+.acc-icon::after { left: 7px; top: 0; width: 2px; height: 16px; }
+.acc-trigger[aria-expanded="true"] .acc-icon::after { transform: scaleY(0); }
+.acc-panel { padding: 0 4px 26px; }
+.acc-list { list-style: none; margin: 0; padding: 0; max-width: 640px; }
+.acc-list li { display: flex; align-items: baseline; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.acc-list li:last-child { border-bottom: 0; }
+@media (max-width: 640px) { .acc-trigger { grid-template-columns: 1fr auto; } .acc-tag { display: none; } }
+
+/* ---------------- À propos ---------------- */
+.about .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
+.about-media { border-radius: var(--radius); overflow: hidden; }
+.about-text p + p { margin-top: 18px; }
+.about-text .signature { font-family: var(--font-head); font-size: 26px; margin-top: 26px; color: var(--accent); }
+
+/* ---------------- Avis ---------------- */
+.avis-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.avis-card { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 28px; }
+.avis-card blockquote { margin: 0; font-family: var(--font-head); font-size: 21px; line-height: 1.4; }
+.avis-card figcaption { margin-top: 20px; display: flex; flex-direction: column; }
+.avis-nom { font-weight: 600; font-size: 15px; }
+.avis-meta { color: var(--muted); font-size: 13.5px; }
+
+/* ---------------- Réservation ---------------- */
+.book .wrap { display: grid; grid-template-columns: .85fr 1.15fr; gap: 56px; }
+.book-aside .ph { margin-top: 24px; }
+form.book-form { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 34px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.field { display: flex; flex-direction: column; gap: 7px; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--text); }
+.field input, .field select, .field textarea {
+  font-family: inherit; font-size: 15px; padding: 11px 13px; border: 1px solid var(--line);
+  border-radius: var(--radius); background: var(--bg); color: var(--text); width: 100%;
+}
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+.field textarea { resize: vertical; min-height: 84px; }
+.form-submit { margin-top: 22px; }
+.form-submit .btn-primary { width: 100%; justify-content: center; font-size: 16px; }
+.form-confirm {
+  background: var(--tint); border: 1px solid var(--accent); border-radius: var(--radius);
+  padding: 28px; text-align: center;
+}
+.form-confirm h3 { font-size: 24px; margin-bottom: 8px; }
+.form-confirm p { color: var(--muted); }
+
+/* ---------------- Contact / footer ---------------- */
+.contact .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.contact-block h4 { font-family: var(--font-body); text-transform: uppercase; letter-spacing: .16em; font-size: 12px; color: var(--accent); margin-bottom: 12px; }
+.contact-block p { color: var(--muted); font-size: 15.5px; }
+.contact-map { margin-top: 40px; }
+.footer { padding: 40px 0; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: 14px; }
+.footer .brand { font-size: 18px; margin-bottom: 8px; }
+
+/* ---------------- Placeholders ---------------- */
+.ph {
+  position: relative; width: 100%; background: var(--tint); color: var(--accent);
+  display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: var(--radius);
+}
+.ph-stripes { position: absolute; inset: 0; }
+.ph-label {
+  position: relative; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 12px; letter-spacing: .04em; color: color-mix(in srgb, var(--text) 60%, transparent);
+  background: color-mix(in srgb, var(--bg) 70%, transparent); padding: 5px 12px; border-radius: 3px; text-align: center;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 860px) {
+  .hero .wrap, .about .wrap, .book .wrap { grid-template-columns: 1fr; gap: 32px; }
+  .cards-grid, .avis-grid, .contact .wrap { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  :root {
+    --bg: #f7efe6;
+    --surface: #fffcf8;
+    --tint: #eaddcc;
+    --text: #3f342b;
+    --muted: #8a7461;
+    --accent: #b06b45;
+    --accent-deep: #8f522f;
+    --on-accent: #fdf5ee;
+    --line: #e5d4c1;
+    --font-head: "Marcellus", Georgia, serif;
+    --font-body: "Mulish", system-ui, sans-serif;
+    --radius: 3px;
+  }
+  .brand, .acc-title, .avis-card blockquote { letter-spacing: .01em; }
+
+  /* ── Logo dans la nav ── */
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; border: 1px solid var(--line); }
+
+  /* ── Réservation (structure reprise du formulaire fourni) ── */
+  .reserve-band { background: var(--tint); padding: 84px 0; }
+  .reserve-grid { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; align-items: start; }
+  .reserve-grid .intro h2 { font-size: clamp(30px, 4vw, 44px); margin-bottom: 16px; }
+  .reserve-grid .intro h2 em { color: var(--accent-deep); }
+  .reserve-grid .intro p { color: var(--muted); margin-bottom: 26px; }
+  .quick-contact { background: color-mix(in srgb, var(--surface) 70%, transparent); border-radius: var(--radius); padding: 20px 22px; border: 1px solid var(--line); }
+  .quick-contact .row { display: grid; grid-template-columns: 92px 1fr; gap: 14px; padding: 9px 0; font-size: 14.5px; align-items: baseline; }
+  .quick-contact .row + .row { border-top: 1px solid var(--line); }
+  .quick-contact .k { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .quick-contact .v { color: var(--text); font-weight: 500; }
+  .quick-contact .v a { color: var(--accent-deep); text-decoration: none; border-bottom: 1px solid var(--accent); }
+
+  .form-card { background: var(--surface); border-radius: var(--radius); padding: 34px; border: 1px solid var(--line); }
+  .selected-bar { display: none; background: var(--tint); border-left: 3px solid var(--accent); border-radius: var(--radius); padding: 13px 18px; margin-bottom: 22px; font-size: 14.5px; color: var(--text); }
+  .selected-bar.is-on { display: block; }
+  .selected-bar .label { display: block; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+  .selected-bar em { color: var(--muted); }
+
+  #resaForm .field { margin-bottom: 17px; display: block; }
+  #resaForm .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  #resaForm label { display: block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; font-weight: 700; }
+  #resaForm input, #resaForm select, #resaForm textarea {
+    width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 12px 14px; font-family: var(--font-body); font-size: 15px; color: var(--text); outline: none;
+    transition: border-color .18s, background .18s;
+  }
+  #resaForm input::placeholder, #resaForm textarea::placeholder { color: var(--muted); opacity: .65; }
+  #resaForm input:focus, #resaForm select:focus, #resaForm textarea:focus { border-color: var(--accent); background: var(--surface); }
+  #resaForm select:disabled { opacity: .5; cursor: not-allowed; }
+  #resaForm textarea { resize: vertical; min-height: 80px; }
+  #resaForm select { cursor: pointer; appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23b06b45' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat; background-position: right 14px center; background-size: 12px; padding-right: 36px; }
+
+  /* Sélecteur de date : grande icône calendrier, pas de saisie au clavier */
+  .date-picker-wrap { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 9px 14px; cursor: pointer; min-height: 46px; }
+  .date-picker-wrap:focus-within { border-color: var(--accent); background: var(--surface); }
+  .date-display { font-size: 15px; color: var(--text); flex: 1; pointer-events: none; }
+  .date-display.placeholder { color: var(--muted); opacity: .8; }
+  .cal-btn { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: var(--radius);
+    background: var(--accent); color: var(--on-accent); flex: 0 0 auto; pointer-events: none; transition: background .18s; }
+  .date-picker-wrap:hover .cal-btn { background: var(--accent-deep); }
+  .cal-btn svg { width: 22px; height: 22px; }
+  .date-picker-wrap input[type="date"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; border: none; background: transparent; font-size: 16px; }
+  .date-picker-wrap input[type="date"]::-webkit-calendar-picker-indicator { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+
+  .submit-btn { width: 100%; margin-top: 6px; padding: 15px; background: var(--accent); color: var(--on-accent); border: none;
+    border-radius: 999px; font-family: var(--font-body); font-size: 14px; letter-spacing: .03em; font-weight: 700; cursor: pointer; transition: background .2s; }
+  .submit-btn:hover { background: var(--accent-deep); }
+  .submit-btn:disabled { opacity: .65; cursor: wait; }
+  .form-note { margin-top: 13px; font-size: 13px; color: var(--muted); text-align: center; font-style: italic; font-family: var(--font-head); }
+  .success { display: none; text-align: center; padding: 18px 8px; }
+  .success.is-on { display: block; }
+  .success h3 { font-size: 26px; margin-bottom: 10px; }
+  .success p { color: var(--muted); }
+  .toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 140%); background: var(--text); color: var(--on-accent);
+    padding: 14px 24px; border-radius: 999px; font-size: 14.5px; z-index: 200; transition: transform .4s cubic-bezier(.2,.8,.2,1); box-shadow: 0 12px 30px rgba(0,0,0,.18); }
+  .toast.show { transform: translate(-50%, 0); }
+
+  /* ── Infos pratiques ── */
+  .infos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .info-col h3 { font-family: var(--font-body); text-transform: uppercase; letter-spacing: .16em; font-size: 12px; color: var(--accent); margin-bottom: 16px; }
+  .info-col .row { display: grid; grid-template-columns: 1fr auto; gap: 14px; padding: 9px 0; font-size: 15px; border-bottom: 1px solid var(--line); }
+  .info-col .row:last-child { border-bottom: 0; }
+  .info-col .row.closed { color: var(--muted); }
+  .info-col .row .k { color: var(--muted); }
+  .info-col .row .v { color: var(--text); font-weight: 500; text-align: right; }
+  .info-col .row .v a { color: var(--accent-deep); text-decoration: none; }
+  .info-col .stack .v { text-align: right; line-height: 1.4; }
+  .map-embed { margin-top: 40px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); height: 360px; }
+  .map-embed iframe { width: 100%; height: 100%; border: 0; display: block; filter: saturate(.9); }
+  .map-link { display: inline-block; margin-top: 14px; font-size: 14.5px; color: var(--accent-deep); text-decoration: none; border-bottom: 1px solid var(--accent); }
+  .map-link:hover { color: var(--accent); }
+  @media (max-width: 860px) { .map-embed { height: 280px; } }
+  @media (max-width: 860px) {
+    .reserve-grid { grid-template-columns: 1fr; gap: 34px; }
+    #resaForm .field-row { grid-template-columns: 1fr; }
+    .infos-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body data-screen-label="Terracotta">
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="#accueil">
+        <img class="brand-logo" alt="Sylvie esthétique" src="https://scontent-cdg4-2.xx.fbcdn.net/v/t39.30808-6/305457913_483015780499291_6556470985169881173_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=vlL8lJuxC9AQ7kNvwHBPoiJ&_nc_oc=Adrsp1lBFIKKP7Mfe-64JDArmFnXT463dIJ1J3HlWllnVeZRzfP-knK-uRzFx8bjo1mqz2Vp_CIKSKX7uK-YPZxH&_nc_zt=23&_nc_ht=scontent-cdg4-2.xx&_nc_gid=JLeT9FHUR_yueeOHWvwpxQ&_nc_ss=782a8&oh=00_Af70d3z71sKNoqKhSlMU-0cnuvMZgmcOcJ5ODIFMWZY-Ug&oe=6A1F71F0" onerror="this.remove()">
+        <span>Sylvie<small>esthétique</small></span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#prestations">Prestations</a></li>
+          <li><a href="#apropos">À propos</a></li>
+          <li><a href="#avis">Avis</a></li>
+          <li><a href="#infos">Infos</a></li>
+        </ul>
+      </nav>
+      <a class="nav-cta" href="#reservation">Prendre RDV</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="accueil">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Institut de beauté · Le Houlme</p>
+        <h1>Prenez soin de vous, tout simplement.</h1>
+        <p class="lead">Visage, corps, épilation, ongles et regard. Un institut chaleureux et sans chichi au Houlme, où chaque soin est pensé pour votre bien-être.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#reservation">Réserver un soin</a>
+          <a class="btn btn-ghost" href="#prestations">Voir les prestations</a>
+        </div>
+      </div>
+      <div class="hero-media" data-ph="Photo — ambiance de l'institut" data-ratio="4 / 5"></div>
+    </div>
+  </section>
+
+  <!-- PRESTATIONS -->
+  <section class="section section--tint" id="prestations">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Nos soins</p>
+        <h2>Prestations & tarifs</h2>
+        <p>Choisissez une catégorie pour vous y rendre directement. Cliquez sur une prestation pour la pré-remplir dans le formulaire de réservation.</p>
+      </div>
+      <nav class="cat-nav" id="catNav"></nav>
+      <div class="cards-grid" id="prestations-list"></div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section class="section about" id="apropos">
+    <div class="wrap">
+      <div class="about-media" data-ph="Portrait — Sylvie" data-ratio="1 / 1"></div>
+      <div class="about-text">
+        <p class="eyebrow">À propos</p>
+        <h2 style="font-size:36px;margin-bottom:18px;">Bonjour, moi c'est Sylvie</h2>
+        <p>[Texte de présentation à compléter — parcours, formations, philosophie du soin.] J'ai ouvert cet institut avec une idée simple : offrir un moment de vraie détente, sans précipitation ni discours commercial.</p>
+        <p>[Quelques mots sur les marques utilisées, l'approche douce, les produits.] Chaque soin est adapté à votre peau et à vos envies du moment.</p>
+        <p class="signature">— Sylvie</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVIS -->
+  <section class="section section--tint" id="avis">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Elles en parlent</p>
+        <h2>Les avis de mes clientes</h2>
+        <p>Avis publiés sur Google.</p>
+      </div>
+      <div class="avis-grid" id="avis-list"></div>
+    </div>
+  </section>
+
+  <!-- RÉSERVATION -->
+  <section class="reserve-band" id="reservation">
+    <div class="reserve-grid">
+      <div class="intro">
+        <p class="eyebrow">Réserver</p>
+        <h2>Réservez<br>votre <em>moment.</em></h2>
+        <p>Remplissez ce formulaire : choisissez la prestation puis un créneau disponible. Les horaires proposés s'adaptent automatiquement à la durée du soin.</p>
+        <div class="quick-contact">
+          <div class="row"><span class="k">Téléphone</span><span class="v"><a href="tel:+33618496409">06 18 49 64 09</a></span></div>
+          <div class="row"><span class="k">Adresse</span><span class="v">146 Rue du Général de Gaulle, Le Houlme</span></div>
+          <div class="row"><span class="k">Facebook</span><span class="v"><a href="https://www.facebook.com/SylvieLepretreEsthetique76/" target="_blank" rel="noopener">Sylvie Lepretre Esthétique</a></span></div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="selected-bar" id="selectedBar">
+          <span class="label">Prestation sélectionnée</span>
+          <span id="selectedText"></span>
+        </div>
+        <form id="resaForm">
+          <div class="field-row">
+            <div class="field"><label>Prénom</label><input type="text" name="prenom" placeholder="Marie" required></div>
+            <div class="field"><label>Nom</label><input type="text" name="nom" placeholder="Dupont" required></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Téléphone</label><input type="tel" name="telephone" placeholder="06 __ __ __ __" required></div>
+            <div class="field"><label>Email</label><input type="email" name="email" placeholder="marie@email.fr" required></div>
+          </div>
+          <div class="field">
+            <label>Prestation souhaitée</label>
+            <select name="prestation" id="prestationSelect" required>
+              <option value="">— Choisir une prestation —</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Date souhaitée</label>
+              <div class="date-picker-wrap" id="datePickerWrap">
+                <span id="dateDisplay" class="date-display placeholder">Choisir une date</span>
+                <span class="cal-btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+                <input type="date" name="date" id="dateInput" required aria-label="Date souhaitée">
+              </div>
+            </div>
+            <div class="field">
+              <label>Heure souhaitée</label>
+              <select name="creneau" id="creneauSelect" disabled>
+                <option value="">— Choisir d'abord une date —</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label>Message · précisions</label><textarea name="message" placeholder="Une précision, une première visite…"></textarea></div>
+          <button type="submit" class="submit-btn" id="submitBtn">Confirmer ma réservation →</button>
+          <p class="form-note" id="formNote">Confirmation par email immédiate.</p>
+          <p id="formError" style="color:var(--accent-deep);font-size:13px;text-align:center;min-height:18px;margin-top:6px;"></p>
+        </form>
+        <div class="success" id="successMsg">
+          <h3>Réservation confirmée !</h3>
+          <p>Un email de confirmation vient de vous être envoyé. À très bientôt à l'institut ✨</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOS -->
+  <section class="section" id="infos">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Infos pratiques</p><h2>Horaires & contact</h2></div>
+      <div class="infos-grid">
+        <div class="info-col">
+          <h3>Horaires</h3>
+          <div class="row closed"><span class="k">Lundi</span><span class="v">Fermé</span></div>
+          <div class="row"><span class="k">Mardi</span><span class="v">9 h–12 h · 14 h–19 h</span></div>
+          <div class="row"><span class="k">Mercredi</span><span class="v">9 h–12 h · 14 h–19 h</span></div>
+          <div class="row"><span class="k">Jeudi</span><span class="v">9 h–12 h · 14 h–20 h</span></div>
+          <div class="row"><span class="k">Vendredi</span><span class="v">9 h–12 h · 14 h–19 h</span></div>
+          <div class="row"><span class="k">Samedi</span><span class="v">9 h–13 h</span></div>
+          <div class="row closed"><span class="k">Dimanche</span><span class="v">Fermé</span></div>
+        </div>
+        <div class="info-col">
+          <h3>Contact</h3>
+          <div class="row stack"><span class="k">Adresse</span><span class="v">146 Rue du Général<br>de Gaulle<br>76770 Le Houlme</span></div>
+          <div class="row"><span class="k">Téléphone</span><span class="v"><a href="tel:+33618496409">06 18 49 64 09</a></span></div>
+          <div class="row"><span class="k">Facebook</span><span class="v"><a href="https://www.facebook.com/SylvieLepretreEsthetique76/" target="_blank" rel="noopener">Notre page</a></span></div>
+        </div>
+        <div class="info-col">
+          <h3>À savoir</h3>
+          <div class="row"><span class="k">Réservation</span><span class="v">Sur RDV</span></div>
+          <div class="row"><span class="k">Paiement</span><span class="v">CB · espèces</span></div>
+          <div class="row"><span class="k">Accès</span><span class="v">Parking à proximité</span></div>
+        </div>
+      </div>
+      <div class="contact-map map-embed">
+        <iframe
+          title="Plan d'accès — Sylvie esthétique, 146 Rue du Général de Gaulle, 76770 Le Houlme"
+          src="https://maps.google.com/maps?q=146%20Rue%20du%20G%C3%A9n%C3%A9ral%20de%20Gaulle%2C%2076770%20Le%20Houlme&z=16&output=embed"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+      <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=146%20Rue%20du%20G%C3%A9n%C3%A9ral%20de%20Gaulle%2C%2076770%20Le%20Houlme" target="_blank" rel="noopener">Ouvrir l'itinéraire dans Google Maps →</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="brand" style="justify-content:center;"><span>Sylvie esthétique</span></div>
+      <p>146 Rue du Général de Gaulle · 76770 Le Houlme — © 2026.<br><a href="https://www.facebook.com/SylvieLepretreEsthetique76/" target="_blank" rel="noopener" style="color:var(--accent-deep);">Facebook</a> · [Mentions légales]</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">✦ Réservation confirmée — email envoyé !</div>
+
+  <script>
+/* ===== assets/data.js (intégré) ===== */
+/* =====================================================================
+   Sylvie esthétique — données & rendus partagés
+   ⚠️ Prestations et tarifs = EXEMPLES réalistes, à corriger par Sylvie.
+   ===================================================================== */
+(function () {
+  // duree = minutes (sert au calcul des créneaux selon la prestation)
+  const PRESTATIONS = [
+    {
+      id: 'visage',
+      nom: 'Soins du visage',
+      tagline: 'Des protocoles sur mesure selon votre peau',
+      photo: 'Photo — soin du visage',
+      items: [
+        { nom: 'Soin adolescent', prix: '40 €', duree: 45 },
+        { nom: 'Nettoyage de la peau', prix: '40 €', duree: 45 },
+        { nom: 'Soin complet', prix: '47 €', duree: 60 },
+        { nom: 'Soin zen', prix: '49 €', duree: 60 },
+        { nom: 'Soin prestige', prix: '62 €', duree: 75 },
+        { nom: 'Soin anti-rides au courant galvanic avec sillons', prix: '45 €', duree: 60 },
+        { nom: 'Abonnement les 5 séances', prix: '200 €', duree: 60 },
+      ],
+    },
+    {
+      id: 'corps',
+      nom: 'Soins du corps',
+      tagline: 'Une parenthèse pour relâcher les tensions',
+      photo: 'Photo — modelage / soin du corps',
+      items: [
+        { nom: 'Soin cryo', prix: '29 €', duree: 30 },
+        { nom: 'Soin du dos', prix: '48 €', duree: 45 },
+        { nom: 'Modelage indien ou californien', prix: '48 €', duree: 60 },
+        { nom: 'Drainage anti-cellulite', prix: '48 €', duree: 45 },
+      ],
+    },
+    {
+      id: 'epilation',
+      nom: 'Épilation',
+      tagline: 'Cire douce et lumière pulsée',
+      photo: 'Photo — cabine / soin épilation',
+      items: [
+        { nom: 'Lèvres ou joues', prix: '8 €', duree: 15 },
+        { nom: 'Sourcils', prix: '10 €', duree: 15 },
+        { nom: 'Lèvres + menton', prix: '11 €', duree: 15 },
+        { nom: 'Bras', prix: '16 €', duree: 30 },
+        { nom: 'Maillot intégral', prix: '20 €', duree: 30 },
+        { nom: 'Maillot ou aisselles', prix: '12 €', duree: 15 },
+        { nom: 'Jambes entières', prix: '32 €', duree: 45 },
+        { nom: '1/2 jambes', prix: '16 €', duree: 30 },
+        { nom: '1/2 jambes + maillot', prix: '24 €', duree: 45 },
+        { nom: '1/2 jambes + aisselles + maillot', prix: '32 €', duree: 60 },
+        { nom: 'Torse ou dos', prix: '23 €', duree: 30 },
+        { nom: 'Nez ou oreilles', prix: '5 €', duree: 15 },
+        { nom: 'Lumière pulsée aisselles ou maillot', prix: '35 €', duree: 30 },
+      ],
+    },
+    {
+      id: 'mains-pieds',
+      nom: 'Soin des mains et pieds',
+      tagline: 'Des ongles soignés, jusqu’au bout des doigts',
+      photo: 'Photo — manucure / beauté des mains',
+      items: [
+        { nom: 'Manucure', prix: '22 €', duree: 30 },
+        { nom: 'Pose vernis + ongles limés', prix: '16 €', duree: 30 },
+        { nom: 'Beauté des pieds', prix: '32 €', duree: 45 },
+        { nom: 'Ongles limés pied ou main', prix: '11 €', duree: 15 },
+        { nom: 'French gel ou couleur', prix: '38 €', duree: 60 },
+        { nom: 'Vernis semi-permanent', prix: '29 €', duree: 45 },
+        { nom: 'Strass ou nail art / art de l’ongle', prix: '0,50 / 1,50 €', duree: 15 },
+        { nom: 'Dépose d’ongle gel ou semi-permanent', prix: '10 €', duree: 15 },
+      ],
+    },
+    {
+      id: 'maquillage',
+      nom: 'Maquillage & regard',
+      tagline: 'Pour sublimer le regard et les grands jours',
+      photo: 'Photo — maquillage / rehaussement de cils',
+      items: [
+        { nom: 'Cérémonie', prix: '25 €', duree: 45 },
+        { nom: 'Réhaussement de cils', prix: '38 €', duree: 45 },
+        { nom: 'Teinture de cils', prix: '13 €', duree: 20 },
+        { nom: 'Teinture de sourcils', prix: '11 €', duree: 15 },
+        { nom: 'Eyebrows lift · sourcils', prix: '38 €', duree: 45 },
+      ],
+    },
+  ];
+
+  // Vrais avis Google
+  const AVIS = [
+    { texte: 'Sylvie est adorable. Toujours le sourire et essaye toujours de trouver une petite place dans son planning bien chargé.', nom: 'Nelly', meta: 'Local Guide · Google' },
+    { texte: 'Parfait, Sylvie est très agréable et de très bons conseils. À très bientôt.', nom: 'Elise Bourjaillat', meta: 'Local Guide · Google' },
+    { texte: 'Très commerçante et accueillante, elle prend soin et le temps qu’il faut avec ses clientes.', nom: 'Mélanie Goulon', meta: 'Avis Google' },
+    { texte: 'Très très bien, le paradis de la détente.', nom: 'Catherine Savouray', meta: 'Avis Google' },
+    { texte: 'Ponctualité, propreté, qualité, professionnalisme… Tout y est.', nom: 'Agnès Martin', meta: 'Local Guide · Google' },
+    { texte: 'Cinq étoiles, une adresse que je recommande.', nom: 'Marilyne Damour', meta: 'Avis Google' },
+  ];
+
+  /* ---------- Placeholder photo (rayures douces + libellé mono) ---------- */
+  function placeholder(label, ratio) {
+    ratio = ratio || '4 / 3';
+    const el = document.createElement('div');
+    el.className = 'ph';
+    el.style.aspectRatio = ratio;
+    el.innerHTML =
+      '<svg class="ph-stripes" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">' +
+      '<defs><pattern id="d' + Math.random().toString(36).slice(2, 7) +
+      '" width="14" height="14" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">' +
+      '<rect width="14" height="14" fill="transparent"/>' +
+      '<line x1="0" y1="0" x2="0" y2="14" stroke="currentColor" stroke-width="7" opacity="0.10"/>' +
+      '</pattern></defs><rect width="100%" height="100%" fill="url(#d' + 'STRIPE' + ')"/></svg>' +
+      '<span class="ph-label">' + label + '</span>';
+    // fix pattern id reference
+    const pid = el.querySelector('pattern').id;
+    el.querySelector('rect[fill^="url"]').setAttribute('fill', 'url(#' + pid + ')');
+    return el;
+  }
+
+  /* ---------- Rendu prestations selon le mode ---------- */
+  function renderPrestations(container, mode) {
+    container.innerHTML = '';
+    PRESTATIONS.forEach((cat, i) => {
+      const block = document.createElement('section');
+      block.className = 'cat cat--' + mode;
+      block.id = 'cat-' + cat.id;
+
+      if (mode === 'menu') {
+        block.innerHTML =
+          '<header class="cat-head"><h3>' + cat.nom + '</h3><p>' + cat.tagline + '</p></header>' +
+          '<ul class="menu-list">' +
+          cat.items.map(it =>
+            '<li><span class="m-name">' + it.nom +
+            (it.detail ? ' <em>· ' + it.detail + '</em>' : '') +
+            '</span><span class="m-dots"></span><span class="m-price">' + it.prix + '</span></li>'
+          ).join('') +
+          '</ul>';
+      } else if (mode === 'cards') {
+        const ph = placeholder(cat.photo, '4 / 3');
+        block.innerHTML =
+          '<div class="card-media"></div>' +
+          '<div class="card-body"><header class="cat-head"><h3>' + cat.nom + '</h3><p>' + cat.tagline + '</p></header>' +
+          '<ul class="card-list">' +
+          cat.items.map(it =>
+            '<li class="presta-row" data-service="' + it.nom.replace(/"/g, '&quot;') + '"' +
+            ' data-duration="' + it.duree + ' min" data-price="' + it.prix + '" tabindex="0" role="button">' +
+            '<span class="m-name">' + it.nom +
+            (it.detail ? ' <em>· ' + it.detail + '</em>' : '') +
+            '</span><span class="m-meta"><span class="m-dur">' + it.duree + ' min</span>' +
+            '<span class="m-price">' + it.prix + '</span>' +
+            '<span class="m-add" aria-hidden="true">Réserver</span></span></li>'
+          ).join('') +
+          '</ul></div>';
+        block.querySelector('.card-media').appendChild(ph);
+      } else if (mode === 'accordion') {
+        block.innerHTML =
+          '<button class="acc-trigger" aria-expanded="' + (i === 0 ? 'true' : 'false') + '">' +
+          '<span class="acc-title">' + cat.nom + '</span>' +
+          '<span class="acc-tag">' + cat.tagline + '</span>' +
+          '<span class="acc-icon" aria-hidden="true"></span></button>' +
+          '<div class="acc-panel"' + (i === 0 ? '' : ' hidden') + '>' +
+          '<ul class="acc-list">' +
+          cat.items.map(it =>
+            '<li><span class="m-name">' + it.nom +
+            (it.detail ? ' <em>· ' + it.detail + '</em>' : '') +
+            '</span><span class="m-dots"></span><span class="m-price">' + it.prix + '</span></li>'
+          ).join('') +
+          '</ul></div>';
+      }
+      container.appendChild(block);
+    });
+
+    if (mode === 'accordion') {
+      container.querySelectorAll('.acc-trigger').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const panel = btn.nextElementSibling;
+          const open = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!open));
+          panel.hidden = open;
+        });
+      });
+    }
+  }
+
+  /* ---------- Chips de navigation des catégories ---------- */
+  function renderCatNav(container) {
+    container.innerHTML = PRESTATIONS.map(c =>
+      '<a href="#cat-' + c.id + '">' + c.nom + '</a>'
+    ).join('');
+  }
+
+  /* ---------- Rendu avis ---------- */
+  function renderAvis(container) {
+    container.innerHTML = AVIS.map(a =>
+      '<figure class="avis-card"><blockquote>“' + a.texte + '”</blockquote>' +
+      '<figcaption><span class="avis-nom">' + a.nom + '</span>' +
+      '<span class="avis-meta">' + a.meta + '</span></figcaption></figure>'
+    ).join('');
+  }
+
+  /* ---------- Options du select prestation (formulaire) ---------- */
+  function fillPrestationSelect(select) {
+    PRESTATIONS.forEach(cat => {
+      const og = document.createElement('optgroup');
+      og.label = cat.nom;
+      cat.items.forEach(it => {
+        const o = document.createElement('option');
+        o.value = it.nom;
+        o.textContent = it.nom + ' (' + it.prix + ' · ' + it.duree + ' min)';
+        og.appendChild(o);
+      });
+      select.appendChild(og);
+    });
+  }
+
+  /* ---------- Map { nomPrestation: durée minutes } ---------- */
+  function buildDurations() {
+    const map = {};
+    PRESTATIONS.forEach(cat => cat.items.forEach(it => { map[it.nom] = it.duree; }));
+    return map;
+  }
+
+  /* ---------- Formulaire de réservation ---------- */
+  function initForm(form) {
+    const select = form.querySelector('[name="prestation"]');
+    if (select) fillPrestationSelect(select);
+    const dateInput = form.querySelector('[name="date"]');
+    if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const ok = form.querySelector('.form-confirm');
+      if (ok) {
+        ok.hidden = false;
+        ok.scrollHeight; // reflow
+      }
+      form.querySelector('.form-grid').style.display = 'none';
+      form.querySelector('.form-submit').style.display = 'none';
+    });
+  }
+
+  /* ---------- Placeholders disséminés dans la page ---------- */
+  function fillPlaceholders(root) {
+    (root || document).querySelectorAll('[data-ph]').forEach(slot => {
+      const ratio = slot.getAttribute('data-ratio') || '4 / 3';
+      slot.appendChild(placeholder(slot.getAttribute('data-ph'), ratio));
+    });
+  }
+
+  window.SYLVIE = {
+    PRESTATIONS, AVIS, placeholder,
+    renderPrestations, renderCatNav, renderAvis, initForm, fillPlaceholders,
+    fillPrestationSelect, buildDurations,
+  };
+})();
+
+</script>
+  <script>
+/* ===== assets/reservation.js (intégré) ===== */
+/* =====================================================================
+   Sylvie esthétique — Réservation
+   Logique reprise du formulaire fourni (EmailJS + Firebase + Google
+   Calendar) et adaptée : horaires avec pause déjeuner + durées par
+   prestation issues de data.js.
+
+   ⚠️ CONFIG À PERSONNALISER POUR SYLVIE ⚠️
+   Les identifiants ci-dessous proviennent du formulaire d'exemple.
+   Pour mettre le site en production, remplacez-les par le compte
+   EmailJS et la base Firebase de Sylvie, et l'email qui reçoit les RDV.
+   ===================================================================== */
+(function () {
+  const CONFIG = {
+    emailjsPublicKey:        'taiezIIi9rYiAXbaZ',          // ← clé publique EmailJS
+    emailjsService:          'service_cil72h9',            // ← service EmailJS
+    emailjsTemplateClient:   'template_w6j55lz',           // ← modèle : email à la cliente
+    emailjsTemplateInstitut: 'template_2oqhkuu',           // ← modèle : email à l'institut
+    firebaseUrl:             'https://la-fille-de-la-marquise-default-rtdb.europe-west1.firebasedatabase.app',
+    emailInstitut:           'emiletaraud942@gmail.com',   // ← email qui reçoit les réservations
+    nomInstitut:             'Sylvie esthétique',
+    adresse:                 '146 Rue du Général de Gaulle, 76770 Le Houlme',
+    tel:                     '06 18 49 64 09',
+  };
+
+  // Horaires : tableau de plages [ouverture, fermeture] par jour (0 = dimanche)
+  // null = fermé. Pause déjeuner = deux plages.
+  const HOURS = {
+    0: null,                 // dimanche — fermé
+    1: null,                 // lundi — fermé
+    2: [[9, 12], [14, 19]],  // mardi
+    3: [[9, 12], [14, 19]],  // mercredi
+    4: [[9, 12], [14, 20]],  // jeudi
+    5: [[9, 12], [14, 19]],  // vendredi
+    6: [[9, 13]],            // samedi
+  };
+
+  let DURATIONS = {};        // rempli depuis SYLVIE.buildDurations()
+  const SLOT_STEP = 30;      // granularité des créneaux (minutes)
+  const DEFAULT_DUR = 30;    // durée par défaut si prestation non choisie
+
+  function timeToMin(t) { const [h, m] = t.split(':').map(Number); return h * 60 + m; }
+  function minToTime(m) { return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); }
+
+  // Un créneau est libre s'il tient avant la fermeture de SA plage et
+  // n'entre pas en conflit avec une réservation existante.
+  function slotAvailable(slotTime, serviceDuration, bookings, rangeCloseHour) {
+    const start = timeToMin(slotTime);
+    const end   = start + serviceDuration;
+    if (end > rangeCloseHour * 60) return false;
+    for (const b of bookings) {
+      const bStart = timeToMin(b.creneau);
+      const bEnd   = bStart + (DURATIONS[b.prestation] || DEFAULT_DUR);
+      if (start < bEnd && end > bStart) return false;
+    }
+    return true;
+  }
+
+  // ── Firebase Realtime Database ──
+  async function fetchBookings() {
+    const res = await fetch(CONFIG.firebaseUrl + '/bookings.json');
+    if (!res.ok) throw new Error('Firebase ' + res.status);
+    const data = await res.json();
+    return data ? Object.values(data) : [];
+  }
+  async function saveBooking(booking) {
+    const res = await fetch(CONFIG.firebaseUrl + '/bookings.json', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(booking),
+    });
+    if (!res.ok) throw new Error('Firebase save failed ' + res.status);
+  }
+
+  function init() {
+    DURATIONS = SYLVIE.buildDurations();
+    emailjs.init({ publicKey: CONFIG.emailjsPublicKey });
+
+    const form        = document.getElementById('resaForm');
+    const sel         = document.getElementById('prestationSelect');
+    const bar         = document.getElementById('selectedBar');
+    const txt         = document.getElementById('selectedText');
+    const di          = document.getElementById('dateInput');
+    const dateDisplay = document.getElementById('dateDisplay');
+    const creneauSel  = document.getElementById('creneauSelect');
+    const succ        = document.getElementById('successMsg');
+    const toast       = document.getElementById('toast');
+    const submitBtn   = document.getElementById('submitBtn');
+    const formError   = document.getElementById('formError');
+
+    // Remplit le menu déroulant des prestations
+    SYLVIE.fillPrestationSelect(sel);
+
+    // ── Sélection d'une prestation depuis les cartes ──
+    function fillBar(service) {
+      const dur = DURATIONS[service];
+      txt.innerHTML = '<strong>' + service + '</strong>' + (dur ? ' <em>· ' + dur + ' min</em>' : '');
+      bar.classList.add('is-on');
+    }
+    document.querySelectorAll('.presta-row[data-service]').forEach(el => {
+      const choose = () => {
+        sel.value = el.dataset.service;
+        fillBar(el.dataset.service);
+        if (di.value) refreshCreneaux();
+        setTimeout(() => document.getElementById('reservation').scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+      };
+      el.addEventListener('click', choose);
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(); } });
+    });
+    sel.addEventListener('change', () => {
+      if (!sel.value) { bar.classList.remove('is-on'); }
+      else fillBar(sel.value);
+      if (di.value) refreshCreneaux();
+    });
+
+    // ── Date : affichage formaté, pas de saisie clavier (icône calendrier) ──
+    function updateDateDisplay() {
+      if (di.value) {
+        const d = new Date(di.value + 'T00:00');
+        dateDisplay.textContent = d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+        dateDisplay.classList.remove('placeholder');
+      } else {
+        dateDisplay.textContent = 'Choisir une date';
+        dateDisplay.classList.add('placeholder');
+      }
+    }
+    const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+    di.min = tomorrow.toISOString().split('T')[0];
+
+    // ── Créneaux dynamiques selon le jour, la durée, et les RDV existants ──
+    async function refreshCreneaux() {
+      const dateStr = di.value;
+      creneauSel.innerHTML = '';
+      if (!dateStr) {
+        creneauSel.appendChild(new Option("— Choisir d'abord une date —", ''));
+        creneauSel.disabled = true;
+        return;
+      }
+      const ranges = HOURS[new Date(dateStr + 'T00:00').getDay()];
+      if (!ranges) {
+        creneauSel.appendChild(new Option('Institut fermé ce jour-là', ''));
+        creneauSel.disabled = true;
+        return;
+      }
+
+      creneauSel.disabled = true;
+      creneauSel.innerHTML = '';
+      creneauSel.appendChild(new Option('Chargement des disponibilités…', ''));
+
+      const serviceDuration = DURATIONS[sel.value] || DEFAULT_DUR;
+
+      let bookings = [];
+      try { bookings = (await fetchBookings()).filter(b => b.date === dateStr); }
+      catch (e) { console.warn('Firebase indisponible, affichage sans filtre :', e); }
+
+      creneauSel.innerHTML = '';
+      creneauSel.appendChild(new Option('— Choisir un horaire —', ''));
+
+      let anyFree = false;
+      ranges.forEach(([open, close]) => {
+        for (let m = open * 60; m < close * 60; m += SLOT_STEP) {
+          const val   = minToTime(m);
+          const label = val.replace(':', ' h ');
+          if (slotAvailable(val, serviceDuration, bookings, close)) {
+            creneauSel.appendChild(new Option(label, val));
+            anyFree = true;
+          } else {
+            const opt = new Option(label + ' — indisponible', '');
+            opt.disabled = true; opt.style.color = '#9F8979';
+            creneauSel.appendChild(opt);
+          }
+        }
+      });
+      if (!anyFree) creneauSel.appendChild(new Option('Aucun créneau disponible', ''));
+      creneauSel.disabled = false;
+    }
+
+    di.addEventListener('change', () => { updateDateDisplay(); refreshCreneaux(); });
+
+    // ── Soumission : vérif créneau + emails + sauvegarde ──
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      formError.textContent = '';
+
+      const creneau = creneauSel.value;
+      if (!creneau) {
+        creneauSel.style.borderColor = 'var(--accent)';
+        setTimeout(() => creneauSel.style.borderColor = '', 2000);
+        return;
+      }
+
+      const prenom     = form.prenom.value.trim();
+      const nom        = form.nom.value.trim();
+      const telephone  = form.telephone.value.trim();
+      const email      = form.email.value.trim();
+      const prestation = form.prestation.value;
+      const dateVal    = form.date.value;
+      const message    = form.message.value.trim();
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Vérification du créneau…';
+
+      try {
+        // Vérifie en temps réel que le créneau est toujours libre
+        try {
+          const bookings = await fetchBookings();
+          if (bookings.some(b => b.date === dateVal && b.creneau === creneau)) {
+            formError.textContent = 'Ce créneau vient d’être réservé. Veuillez en choisir un autre.';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Confirmer ma réservation →';
+            await refreshCreneaux();
+            return;
+          }
+        } catch (e) { console.warn('Vérification doublon ignorée :', e); }
+
+        submitBtn.textContent = 'Envoi en cours…';
+
+        const dateObj   = new Date(dateVal + 'T00:00');
+        const dateFR    = dateObj.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        const creneauFR = creneau.replace(':', 'h');
+
+        // Lien Google Calendar pour l'institut
+        const dureeMin  = DURATIONS[prestation] || 60;
+        const dateStart = new Date(dateVal + 'T' + creneau + ':00');
+        const dateEnd   = new Date(dateStart.getTime() + dureeMin * 60 * 1000);
+        const toGCal = dt => dt.getFullYear()
+          + String(dt.getMonth() + 1).padStart(2, '0')
+          + String(dt.getDate()).padStart(2, '0')
+          + 'T' + String(dt.getHours()).padStart(2, '0')
+          + String(dt.getMinutes()).padStart(2, '0') + '00';
+        const gcalParams = new URLSearchParams({
+          action: 'TEMPLATE',
+          text:   'RDV - ' + prestation + ' - ' + prenom + ' ' + nom,
+          dates:  toGCal(dateStart) + '/' + toGCal(dateEnd),
+          details: 'Prestation : ' + prestation + '\nCliente : ' + prenom + ' ' + nom +
+                   '\nTel : ' + telephone + '\nEmail : ' + email + (message ? '\nMessage : ' + message : ''),
+          location: CONFIG.nomInstitut + ', ' + CONFIG.adresse,
+        });
+        const gcalLink = 'https://calendar.google.com/calendar/render?' + gcalParams.toString();
+
+        const templateParams = {
+          prenom, nom, telephone, email, prestation,
+          date: dateFR, creneau: creneauFR,
+          message: message || 'Aucun message',
+          gcal_link: gcalLink,
+          to_email: email,
+          to_name: prenom + ' ' + nom,
+          atelier_email: CONFIG.emailInstitut,
+        };
+
+        // Emails : confirmation cliente + notification institut
+        await emailjs.send(CONFIG.emailjsService, CONFIG.emailjsTemplateClient, templateParams);
+        await emailjs.send(CONFIG.emailjsService, CONFIG.emailjsTemplateInstitut, {
+          ...templateParams,
+          to_email: CONFIG.emailInstitut,
+          to_name: CONFIG.nomInstitut,
+        });
+
+        // Sauvegarde le créneau
+        try {
+          await saveBooking({ date: dateVal, creneau, prenom, nom, telephone, email, prestation, createdAt: new Date().toISOString() });
+        } catch (e) { console.warn('Sauvegarde créneau échouée :', e); }
+
+        // Succès
+        form.style.display = 'none';
+        bar.style.display = 'none';
+        succ.classList.add('is-on');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 6000);
+
+      } catch (err) {
+        console.error(err);
+        formError.textContent = 'Une erreur est survenue. Appelez le ' + CONFIG.tel + '.';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Confirmer ma réservation →';
+      }
+    });
+  }
+
+  window.SylvieReservation = { init };
+})();
+
+</script>
+  <script>
+    SYLVIE.renderCatNav(document.getElementById('catNav'));
+    SYLVIE.renderPrestations(document.getElementById('prestations-list'), 'cards');
+    SYLVIE.renderAvis(document.getElementById('avis-list'));
+    SYLVIE.fillPlaceholders(document);
+    SylvieReservation.init();
+  </script>
+</body>
+</html>
